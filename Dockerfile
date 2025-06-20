@@ -1,4 +1,4 @@
-FROM node:18 as builder
+FROM node:18.20.8-bullseye as builder
 
 WORKDIR /build
 
@@ -24,7 +24,7 @@ COPY . .
 COPY --from=builder /build/build ./web/build
 RUN go build -ldflags "-s -w -X 'one-api/common.Version=$(cat VERSION)' -extldflags '-static'" -o one-api
 
-FROM alpine
+FROM alpine:3.22.0
 
 RUN apk update \
     && apk upgrade \

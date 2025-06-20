@@ -1,0 +1,30 @@
+name: Docker Build
+
+on:
+  push:
+    branches: [ "max_limit" ]  # 触发分支按需修改
+  pull_request:
+    branches: [ "max_limit" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Login to GitHub Package Registry
+        uses: docker/login-action@v1.12.0
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          context: . 
+          file: ./Dockerfile 
+          tags: ghcr.io/chen3/mx404-one-hub:v0.14.20 
+          push: true

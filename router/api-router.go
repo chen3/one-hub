@@ -22,7 +22,7 @@ func SetApiRouter(router *gin.Engine) {
 	}
 
 	apiRouter.POST("/telegram/:token", middleware.Telegram(), controller.TelegramBotWebHook)
-	apiRouter.Use(middleware.GlobalAPIRateLimit())
+	// apiRouter.Use(middleware.GlobalAPIRateLimit())
 	{
 		apiRouter.GET("/image/:id", controller.CheckImg)
 		apiRouter.GET("/status", controller.GetStatus)

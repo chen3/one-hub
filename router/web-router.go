@@ -13,7 +13,7 @@ import (
 
 func SetWebRouter(router *gin.Engine, buildFS embed.FS, indexPage []byte) {
 	router.Use(gzip.Gzip(gzip.DefaultCompression))
-	router.Use(middleware.GlobalWebRateLimit())
+	// router.Use(middleware.GlobalWebRateLimit())
 	router.Use(middleware.Cache())
 	// 特别处理favicon.ico请求
 	router.GET("/favicon.ico", controller.Favicon(buildFS))
